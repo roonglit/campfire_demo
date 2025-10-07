@@ -1,0 +1,20 @@
+<h1>Ping a User</h1>
+
+<p>Select a user to start a direct message conversation:</p>
+
+<% if @users.any? %>
+  <ul style="list-style: none; padding: 0;">
+    <% @users.each do |user| %>
+      <li style="padding: 10px; border-bottom: 1px solid #eee;">
+        <%= form_with url: directs_path, method: :post do |f| %>
+          <%= f.hidden_field :user_id, value: user.id %>
+          <%= f.submit "💬 #{user.email}", style: "background: none; border: none; color: #007bff; cursor: pointer; font-size: 16px; padding: 0;" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No other users available.</p>
+<% end %>
+
+<p><%= link_to "← Back to rooms", rooms_path %></p>

@@ -1,12 +1,15 @@
 <h1>Rooms</h1>
 
-<p><%= link_to "+ New Room", new_room_path, style: "padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block;" %></p>
+<div style="margin-bottom: 20px;">
+  <%= link_to "+ New Room", new_room_path, style: "padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-right: 10px;" %>
+  <%= link_to "💬 Ping User", new_direct_path, style: "padding: 10px 15px; background: #28a745; color: white; text-decoration: none; border-radius: 4px; display: inline-block;" %>
+</div>
 
 <% if @rooms.any? %>
   <ul>
     <% @rooms.each do |room| %>
       <li style="margin-bottom: 10px;">
-        <%= link_to room.name || "Room ##{room.id}", room_path(room) %>
+        <%= link_to room.name || "DM with #{room.users.where.not(id: current_campfire_user.id).first&.email || 'User'}", room_path(room) %>
         <small style="color: #666;">(<%=room.type.demodulize %>)</small>
       </li>
     <% end %>
