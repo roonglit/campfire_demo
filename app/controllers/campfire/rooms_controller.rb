@@ -1,13 +1,39 @@
 module Campfire
   class RoomsController < ApplicationController
-    before_action :set_room, only: %i[ show ]
+    before_action :set_room, only: %i[ show edit update destroy ]
 
     def index
       @rooms = current_campfire_user.rooms.ordered
     end
 
     def show
-      # Will add messages later in Phase 2
+    end
+
+    def new
+      @room = Room.new
+    end
+
+    def create
+      @room = Room.create_for(room_params.merge(creator: current_campfire_user), users: current_campfire_user)
+
+      redirect_to room_path(@room), notice: "Room created successfully"
+    rescue ActiveRecord::RecordInvalid => e
+      render :new, status: :unprocessable_entity
+    end
+
+    def edit
+    end
+
+    def update
+      @room.update!(room_params)
+      redirect_to room_path(@room), notice: "Room updated successfully"
+    rescue ActiveRecord::RecordInvalid => e
+      render :edit, status: :unprocessable_entity
+    end
+
+    def destroy
+      @room.destroy
+      redirect_to rooms_path, notice: "Room deleted successfully"
     end
 
     private
@@ -17,6 +43,10 @@ module Campfire
         else
           redirect_to rooms_path, alert: "Room not found or inaccessible"
         end
+      end
+
+      def room_params
+        params.require(:room).permit(:name, :type)
       end
   end
 end

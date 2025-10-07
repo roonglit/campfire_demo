@@ -1,13 +1,16 @@
 <h1>Rooms</h1>
 
+<p><%= link_to "+ New Room", new_room_path, style: "padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block;" %></p>
+
 <% if @rooms.any? %>
   <ul>
     <% @rooms.each do |room| %>
-      <li>
+      <li style="margin-bottom: 10px;">
         <%= link_to room.name || "Room ##{room.id}", room_path(room) %>
+        <small style="color: #666;">(<%=room.type.demodulize %>)</small>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>No rooms available.</p>
+  <p>No rooms yet. <%= link_to "Create your first room!", new_room_path %></p>
 <% end %>

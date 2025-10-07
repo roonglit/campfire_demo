@@ -1,0 +1,40 @@
+<h1>Create New Room</h1>
+
+<%= form_with model: @room, url: rooms_path do |f| %>
+  <% if @room.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@room.errors.count, "error") %> prohibited this room from being saved:</h2>
+      <ul>
+        <% @room.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div style="margin-bottom: 15px;">
+    <%= f.label :name, "Room Name" %><br>
+    <%= f.text_field :name, placeholder: "Enter room name", style: "width: 100%; padding: 8px;" %>
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <%= f.label :type, "Room Type" %><br>
+    <%= f.select :type,
+        [
+          ["Open Room (Everyone can join)", "Campfire::Rooms::Open"],
+          ["Closed Room (Invitation only)", "Campfire::Rooms::Closed"]
+        ],
+        {},
+        { style: "width: 100%; padding: 8px;" }
+    %>
+    <small style="display: block; margin-top: 5px; color: #666;">
+      Open rooms: All users can access<br>
+      Closed rooms: Only invited users can access
+    </small>
+  </div>
+
+  <div>
+    <%= f.submit "Create Room", style: "padding: 10px 20px; cursor: pointer;" %>
+    <%= link_to "Cancel", rooms_path, style: "margin-left: 10px;" %>
+  </div>
+<% end %>
