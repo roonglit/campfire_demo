@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  room: one
+  user: one
+  involvement: MyString
+  connections: 1
+  unread_at: 2025-10-07 09:49:02
+  connected_at: 2025-10-07 09:49:02
+
+two:
+  room: two
+  user: two
+  involvement: MyString
+  connections: 1
+  unread_at: 2025-10-07 09:49:02
+  connected_at: 2025-10-07 09:49:02

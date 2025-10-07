@@ -1,0 +1,13 @@
+<h1>Rooms</h1>
+
+<% if @rooms.any? %>
+  <ul>
+    <% @rooms.each do |room| %>
+      <li>
+        <%= link_to room.name || "Room ##{room.id}", room_path(room) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No rooms available.</p>
+<% end %>
