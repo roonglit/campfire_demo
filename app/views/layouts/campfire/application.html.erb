@@ -12,7 +12,13 @@
 </head>
 <body>
 
-<%= yield %>
+<aside id="sidebar">
+  <%= turbo_frame_tag "sidebar", src: sidebar_path, loading: :lazy %>
+</aside>
+
+<div id="main-content-with-sidebar">
+  <%= yield %>
+</div>
 
 </body>
 </html>

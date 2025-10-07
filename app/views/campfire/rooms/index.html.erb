@@ -1,19 +1,8 @@
-<h1>Rooms</h1>
+<div style="padding: 40px;">
+  <h1>Welcome to Campfire! 🔥</h1>
+  <p>Use the sidebar on the left to navigate between rooms and start conversations.</p>
 
-<div style="margin-bottom: 20px;">
-  <%= link_to "+ New Room", new_room_path, style: "padding: 10px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; display: inline-block; margin-right: 10px;" %>
-  <%= link_to "💬 Ping User", new_direct_path, style: "padding: 10px 15px; background: #28a745; color: white; text-decoration: none; border-radius: 4px; display: inline-block;" %>
+  <% if @rooms.empty? %>
+    <p style="margin-top: 20px; color: #666;">You don't have any rooms yet. Create your first room or ping someone to get started!</p>
+  <% end %>
 </div>
-
-<% if @rooms.any? %>
-  <ul>
-    <% @rooms.each do |room| %>
-      <li style="margin-bottom: 10px;">
-        <%= link_to room.name || "DM with #{room.users.where.not(id: current_campfire_user.id).first&.email || 'User'}", room_path(room) %>
-        <small style="color: #666;">(<%=room.type.demodulize %>)</small>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No rooms yet. <%= link_to "Create your first room!", new_room_path %></p>
-<% end %>

@@ -1,19 +1,23 @@
-<h1><%= @room.name || "Room ##{@room.id}" %></h1>
+<div style="display: flex; flex-direction: column; height: 100vh; padding: 20px;">
+  <div style="border-bottom: 2px solid #ddd; padding-bottom: 15px; margin-bottom: 20px;">
+    <h1 style="margin: 0;"><%= @room.name || "DM" %></h1>
+    <small style="color: #666;"><%= @room.type.demodulize %> Room</small>
+  </div>
 
-<p><%= link_to "← Back to rooms", rooms_path %></p>
+  <div id="messages" style="flex: 1; overflow-y: auto; margin-bottom: 20px;">
+    <% if @room.messages.any? %>
+      <%= render partial: "campfire/messages/message", collection: @room.messages.ordered.with_creator %>
+    <% else %>
+      <p style="color: #999; text-align: center; margin-top: 40px;">No messages yet. Be the first to post!</p>
+    <% end %>
+  </div>
 
-<div id="messages">
-  <% if @room.messages.any? %>
-    <%= render partial: "campfire/messages/message", collection: @room.messages.ordered.with_creator %>
-  <% else %>
-    <p>No messages yet. Be the first to post!</p>
-  <% end %>
+  <%= turbo_stream_from @room, :messages %>
+
+  <div style="border-top: 1px solid #ddd; padding-top: 15px;">
+    <%= form_with model: [:campfire, @room, Campfire::Message.new], url: room_messages_path(@room), style: "margin: 0;" do |f| %>
+      <%= f.rich_text_area :body, placeholder: "Type your message...", style: "width: 100%; min-height: 100px; margin-bottom: 10px;" %>
+      <%= f.submit "Post Message", style: "padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;" %>
+    <% end %>
+  </div>
 </div>
-
-<%= turbo_stream_from @room, :messages %>
-
-<h3>Post a message</h3>
-<%= form_with model: [:campfire, @room, Campfire::Message.new], url: room_messages_path(@room) do |f| %>
-  <%= f.rich_text_area :body, placeholder: "Type your message..." %>
-  <%= f.submit "Post Message" %>
-<% end %>

@@ -1,0 +1,4 @@
+<%= link_to room.name, room_path(room),
+    id: dom_id(room, :list),
+    class: "room",
+    data: { turbo_frame: "_top" } %>

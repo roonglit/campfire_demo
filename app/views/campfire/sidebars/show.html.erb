@@ -1,0 +1,29 @@
+<%= turbo_frame_tag "sidebar" do %>
+  <div class="sidebar__container">
+    <%= turbo_stream_from current_campfire_user, :rooms %>
+
+    <!-- Direct Messages Section -->
+    <div class="directs">
+      <%= link_to new_direct_path, class: "direct direct__new", data: { turbo_frame: "_top" } do %>
+        <span class="direct__author">💬 Ping</span>
+      <% end %>
+
+      <div id="direct_rooms">
+        <%= render partial: "campfire/sidebars/rooms/direct", collection: @direct_memberships, as: :membership %>
+      </div>
+    </div>
+
+    <!-- Open/Closed Rooms Section -->
+    <div class="rooms">
+      <div id="shared_rooms">
+        <% @other_memberships.each do |membership| %>
+          <%= render "campfire/sidebars/rooms/shared", room: membership.room %>
+        <% end %>
+      </div>
+
+      <%= link_to new_room_path, class: "rooms__new-btn", data: { turbo_frame: "_top" } do %>
+        ➕ New Room
+      <% end %>
+    </div>
+  </div>
+<% end %>

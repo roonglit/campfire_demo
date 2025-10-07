@@ -4,6 +4,7 @@ Campfire::Engine.routes.draw do
   end
 
   resources :directs, only: [:new, :create]
+  resource :sidebar, only: [:show]
 
   root to: "rooms#index"
 end
