@@ -3,6 +3,9 @@ module Campfire
     before_action :set_room, only: %i[ show edit update destroy ]
 
     def index
+      # Auto-grant access to open rooms for current user
+      grant_access_to_open_rooms
+
       @rooms = current_campfire_user.rooms.ordered
     end
 
@@ -47,6 +50,12 @@ module Campfire
 
       def room_params
         params.require(:room).permit(:name, :type)
+      end
+
+      def grant_access_to_open_rooms
+        Campfire::Rooms::Open.find_each do |open_room|
+          open_room.grant_access_to_user_if_needed(current_campfire_user)
+        end
       end
   end
 end
