@@ -4,8 +4,11 @@
 
     <!-- Direct Messages Section -->
     <div class="directs">
-      <%= link_to new_direct_path, class: "direct direct__new", data: { turbo_frame: "_top" } do %>
-        <span class="direct__author">💬 Ping</span>
+      <%= link_to campfire.new_direct_path, class: "direct direct__new", data: { turbo_frame: "_top" } do %>
+        <div style="width: 3.5ch; height: 3.5ch; border-radius: 50%; background: var(--color-border); display: flex; align-items: center; justify-content: center; font-size: 1.5em;">
+          💬
+        </div>
+        <span class="direct__author">Ping</span>
       <% end %>
 
       <div id="direct_rooms">
@@ -21,8 +24,9 @@
         <% end %>
       </div>
 
-      <%= link_to new_room_path, class: "rooms__new-btn", data: { turbo_frame: "_top" } do %>
-        ➕ New Room
+      <%= link_to campfire.new_room_path, class: "btn btn--reversed rooms__new-btn", data: { turbo_frame: "_top" } do %>
+        <span class="for-screen-reader">New Room</span>
+        +
       <% end %>
     </div>
   </div>

@@ -1,0 +1,71 @@
+:root {
+  --btn-size: 2.65em;
+}
+
+.btn {
+  align-items: center;
+  background-color: var(--btn-background, var(--color-text-reversed));
+  border-radius: var(--btn-border-radius, 2em);
+  border: var(--btn-border-size, 1px) solid var(--btn-border-color, var(--color-border-darker));
+  color: var(--btn-color, var(--color-text));
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.5em;
+  justify-content: center;
+  padding: var(--btn-padding, 0.5em 1.1em);
+  pointer-events: auto;
+  text-align: center;
+  text-decoration: none;
+
+  /* Circle buttons */
+  &:where(:has(.for-screen-reader)) {
+    --btn-border-radius: 50%;
+    --btn-padding: 0;
+
+    aspect-ratio: 1;
+    block-size: var(--btn-size);
+    display: grid;
+    inline-size: var(--btn-size);
+    place-items: center;
+
+    > * {
+      grid-area: 1/1;
+    }
+  }
+}
+
+/* Variants */
+.btn--reversed {
+  --btn-background: var(--color-text);
+  --btn-color: var(--color-text-reversed);
+  --btn-border-color: transparent;
+  --hover-size: 0;
+  --hover-filter: brightness(0.7);
+}
+
+.btn--negative {
+  --btn-background: var(--color-negative);
+  --btn-color: var(--color-text-reversed);
+  --btn-border-color: transparent;
+  --hover-size: 0;
+  --hover-filter: brightness(0.7);
+}
+
+.btn--borderless {
+  --btn-border-color: transparent;
+}
+
+.btn--plain {
+  --btn-background: transparent;
+  --btn-border-color: transparent;
+  --btn-padding: 0;
+}
+
+.btn--faux {
+  --hover-filter: none;
+  box-shadow: none;
+  cursor: default;
+  outline: 0;
+  pointer-events: none;
+}

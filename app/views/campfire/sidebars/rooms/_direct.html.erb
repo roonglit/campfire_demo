@@ -1,6 +1,11 @@
 <% members = membership.room.users.where.not(id: current_campfire_user.id).presence || [current_campfire_user] %>
 
 <%= link_to room_path(membership.room), class: "direct", id: dom_id(membership.room, :list), data: { turbo_frame: "_top" } do %>
+  <div style="width: 3.5ch; height: 3.5ch; border-radius: 50%; background: var(--color-border); display: flex; align-items: center; justify-content: center; font-weight: 600;">
+    <% if members.any? %>
+      <%= members.first.email[0].upcase %>
+    <% end %>
+  </div>
   <span class="direct__author">
     <% if members.many? %>
       <%= members.map { |m| m.email.split('@').first }.join(', ') %>

@@ -1,23 +1,33 @@
-<div style="display: flex; flex-direction: column; height: 100vh; padding: 20px;">
-  <div style="border-bottom: 2px solid #ddd; padding-bottom: 15px; margin-bottom: 20px;">
-    <h1 style="margin: 0;"><%= @room.name || "DM" %></h1>
-    <small style="color: #666;"><%= @room.type.demodulize %> Room</small>
-  </div>
+<% content_for :nav_content do %>
+  <a href="<%= rooms_path %>" class="btn">
+    <span class="for-screen-reader">All Talk</span>
+    All Talk
+  </a>
+<% end %>
 
-  <div id="messages" style="flex: 1; overflow-y: auto; margin-bottom: 20px;">
-    <% if @room.messages.any? %>
-      <%= render partial: "campfire/messages/message", collection: @room.messages.ordered.with_creator %>
-    <% else %>
-      <p style="color: #999; text-align: center; margin-top: 40px;">No messages yet. Be the first to post!</p>
-    <% end %>
-  </div>
-
-  <%= turbo_stream_from @room, :messages %>
-
-  <div style="border-top: 1px solid #ddd; padding-top: 15px;">
-    <%= form_with model: [:campfire, @room, Campfire::Message.new], url: room_messages_path(@room), style: "margin: 0;" do |f| %>
-      <%= f.rich_text_area :body, placeholder: "Type your message...", style: "width: 100%; min-height: 100px; margin-bottom: 10px;" %>
-      <%= f.submit "Post Message", style: "padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;" %>
-    <% end %>
-  </div>
+<div class="messages"
+     id="messages"
+     data-controller="messages"
+     data-messages-formatted-class="message--formatted"
+     data-messages-me-class="message--me"
+     data-current-user-id="<%= current_campfire_user.id %>">
+  <% if @room.messages.any? %>
+    <%= render partial: "campfire/messages/message", collection: @room.messages.ordered.with_creator %>
+  <% else %>
+    <div class="message-area message-area--empty">
+      <figure style="text-align: center; padding: 2em;">
+        <div style="font-size: 3em; margin-bottom: 0.5em;">💬</div>
+        <figcaption>
+          <h2>Welcome to <%= @room.name || "this conversation" %></h2>
+          <p style="color: var(--color-border-darker);">No messages yet. Start the conversation!</p>
+        </figcaption>
+      </figure>
+    </div>
+  <% end %>
 </div>
+
+<%= turbo_stream_from @room, :messages %>
+
+<footer id="footer" class="composer">
+  <%= render "campfire/messages/form", room: @room %>
+</footer>

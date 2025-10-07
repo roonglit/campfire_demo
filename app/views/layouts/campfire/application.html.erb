@@ -7,18 +7,29 @@
 
   <%= yield :head %>
 
-  <%= stylesheet_link_tag    "campfire/application", media: "all" %>
+  <%= stylesheet_link_tag "campfire/application", media: "all" %>
   <%= campfire_importmap_tags %>
 </head>
-<body>
+<body class="sidebar">
 
-<aside id="sidebar">
-  <%= turbo_frame_tag "sidebar", src: sidebar_path, loading: :lazy %>
-</aside>
+<nav id="nav">
+  <% if content_for?(:nav_content) %>
+    <%= yield :nav_content %>
+  <% else %>
+    <a href="<%= rooms_path %>" class="btn">
+      <span class="for-screen-reader">Back to all rooms</span>
+      ←
+    </a>
+  <% end %>
+</nav>
 
-<div id="main-content-with-sidebar">
+<main id="main-content">
   <%= yield %>
-</div>
+</main>
+
+<aside id="sidebar" class="open">
+  <%= turbo_frame_tag "sidebar", src: campfire.sidebar_path %>
+</aside>
 
 </body>
 </html>

@@ -1,0 +1,145 @@
+/* Composer */
+.composer {
+  flex: none;
+  padding: var(--block-space-half) calc(var(--inline-space) + 1vw);
+  background-color: var(--color-bg);
+}
+
+.composer__form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--inline-space);
+  width: 100%;
+}
+
+/* Context buttons (search, etc) - outside the input */
+.composer__context-btn {
+  --btn-size: 2.5em;
+  --btn-border-color: transparent;
+  --btn-background: transparent;
+  --hover-size: 0;
+
+  flex-shrink: 0;
+  opacity: 0.5;
+  transition: opacity 150ms ease;
+  margin-block-end: 0;
+}
+
+.composer__context-btn:hover {
+  opacity: 1;
+}
+
+/* Input wrapper - the rounded border container */
+.composer__input-wrapper {
+  flex: 1;
+  display: flex;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 1.3rem;
+  padding: 0.5em 0.7em;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.composer__input-wrapper:focus-within {
+  border-color: var(--color-selected-dark);
+  box-shadow: 0 0 0 var(--hover-size) var(--color-selected-dark);
+}
+
+/* Container inside wrapper */
+.composer__input-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+
+/* Message icon hint */
+.composer__input-hint {
+  flex-shrink: 0;
+  font-size: 1.3em;
+  opacity: 0.5;
+  line-height: 1;
+  margin-block-end: 0.1em;
+}
+
+/* Editor wrapper - grows to fill space */
+.composer__editor-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Trix editor - transparent, borderless */
+.composer__input-wrapper trix-editor {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  min-height: 24px;
+  max-height: 10em;
+  overflow-y: auto;
+  width: 100%;
+  font-size: max(16px, 1em);
+  line-height: 1.4;
+  outline: none;
+  box-shadow: none;
+}
+
+trix-editor:empty:not(:focus)::before {
+  color: var(--color-border-darker);
+  content: "Type your message...";
+  opacity: 0.8;
+}
+
+/* Hide toolbar by default */
+trix-toolbar {
+  display: none;
+}
+
+/* Show toolbar when composer is in rich-text mode */
+.composer--rich-text trix-toolbar {
+  display: block;
+  background-color: var(--color-border);
+  border: 1px solid var(--color-border-dark);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-block-end: 0.5em;
+}
+
+/* Buttons inside input wrapper */
+.composer__attachment-btn,
+.composer__format-btn {
+  --btn-size: 2em;
+  --btn-border-color: transparent;
+  --btn-background: transparent;
+  --hover-size: 0;
+
+  flex-shrink: 0;
+  opacity: 0.4;
+  transition: opacity 150ms ease;
+  font-size: 1.1em;
+}
+
+.composer__attachment-btn:hover,
+.composer__format-btn:hover {
+  opacity: 0.7;
+}
+
+/* Submit button - prominent, overlaps edge */
+.composer__submit-btn {
+  --btn-size: 2.3em;
+
+  flex-shrink: 0;
+  font-size: 1.3em;
+  margin-block: -0.3em;
+  margin-inline-end: -0.5em;
+}
+
+/* Attachment button as label */
+.composer__attachment-btn {
+  cursor: pointer;
+}
+
+/* Format button */
+.composer__format-btn strong {
+  font-size: 1.1em;
+  font-weight: 700;
+}

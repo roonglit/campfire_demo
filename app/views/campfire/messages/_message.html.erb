@@ -1,11 +1,26 @@
-<div id="<%= dom_id(message) %>" style="padding: 10px; border-bottom: 1px solid #eee;">
-  <strong><%= message.creator.email %></strong>
-  <small><%= message.created_at.strftime("%B %d, %Y at %l:%M %p") %></small>
-
-  <div id="<%= dom_id(message, :presentation) %>">
-    <%= render "campfire/messages/presentation", message: message %>
+<div id="<%= dom_id(message) %>"
+     class="message"
+     data-user-id="<%= message.creator_id %>"
+     data-messages-target="message">
+  <div class="message__avatar">
+    <% if message.creator.email.present? %>
+      <div class="message__avatar-placeholder">
+        <%= message.creator.email[0].upcase %>
+      </div>
+    <% end %>
   </div>
 
-  <%= link_to "Edit", campfire.edit_room_message_path(message.room, message) %> |
-  <%= link_to "Delete", campfire.room_message_path(message.room, message), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+  <div class="message__body">
+    <div class="message__body-content">
+      <div class="message__meta">
+        <span class="message__author"><%= message.creator.name %></span>
+        <a href="#<%= dom_id(message) %>" class="message__permalink">
+          <%= message.created_at.strftime("%l:%M %p") %>
+        </a>
+      </div>
+      <div id="<%= dom_id(message, :presentation) %>">
+        <%= render "campfire/messages/presentation", message: message %>
+      </div>
+    </div>
+  </div>
 </div>

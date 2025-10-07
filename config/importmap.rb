@@ -9,3 +9,6 @@ pin "campfire/application", preload: true
 
 # Pin all controller files following the *_controller.js naming convention
 pin_all_from Campfire::Engine.root.join("app/javascript/campfire/controllers"), under: "controllers", to: "campfire/controllers"
+
+# Pin models
+pin_all_from Campfire::Engine.root.join("app/javascript/campfire/models"), under: "campfire/models", to: "campfire/models"

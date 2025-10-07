@@ -1,0 +1,20 @@
+<%= form_with model: [:campfire, room, Campfire::Message.new],
+              url: room_messages_path(room),
+              class: "composer__form",
+              id: "new_message",
+              data: { controller: "composer" } do |f| %>
+  <div class="composer__input-wrapper">
+    <div class="composer__input-container">
+      <div class="composer__editor-wrapper">
+        <%= f.rich_text_area :body,
+            placeholder: "",
+            data: {
+              composer_target: "text",
+              action: "keydown->composer#submitByKeyboard"
+            } %>
+      </div>
+
+      <%= f.submit "↑", class: "btn btn--reversed composer__submit-btn", title: "Send message" %>
+    </div>
+  </div>
+<% end %>
