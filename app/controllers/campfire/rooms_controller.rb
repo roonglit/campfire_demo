@@ -15,7 +15,7 @@ module Campfire
         if room = current_campfire_user.rooms.find_by(id: params[:id])
           @room = room
         else
-          redirect_to main_app.root_url, alert: "Room not found or inaccessible"
+          redirect_to rooms_path, alert: "Room not found or inaccessible"
         end
       end
   end

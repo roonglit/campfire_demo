@@ -1,5 +1,7 @@
 module Campfire
   class Message < ApplicationRecord
+    include Broadcasts
+
     belongs_to :room, touch: true
     belongs_to :creator, class_name: "User"
 
