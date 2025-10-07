@@ -3,5 +3,26 @@
 <p><%= link_to "← Back to rooms", rooms_path %></p>
 
 <div id="messages">
-  <p>Messages will appear here (Phase 2)</p>
+  <% if @room.messages.any? %>
+    <% @room.messages.ordered.with_creator.each do |message| %>
+      <div id="message_<%= message.id %>" style="padding: 10px; border-bottom: 1px solid #eee;">
+        <strong><%= message.creator.email %></strong>
+        <small><%= message.created_at.strftime("%B %d, %Y at %l:%M %p") %></small>
+        <div><%= message.body %></div>
+
+        <% if current_campfire_user == message.creator %>
+          <%= link_to "Edit", edit_room_message_path(@room, message) %> |
+          <%= link_to "Delete", room_message_path(@room, message), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No messages yet. Be the first to post!</p>
+  <% end %>
 </div>
+
+<h3>Post a message</h3>
+<%= form_with model: [:campfire, @room, Campfire::Message.new], url: room_messages_path(@room) do |f| %>
+  <%= f.rich_text_area :body, placeholder: "Type your message..." %>
+  <%= f.submit "Post Message" %>
+<% end %>

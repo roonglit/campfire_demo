@@ -6,11 +6,16 @@ module Campfire
     enum :role, { member: 0, administrator: 1, bot: 2 }
 
     scope :active, -> { where(active: true) }
-    scope :ordered, -> { joins(:user).order("LOWER(users.name)") }
+    scope :ordered, -> { joins(:user).order("LOWER(users.email)") }
 
     # Delegate authentication fields to parent app's User
-    delegate :email, :name, to: :user
+    delegate :email, to: :user
     delegate :id, to: :user, prefix: true
+
+    # Helper method for display name (fallback to email if name not present)
+    def name
+      user.try(:name) || email
+    end
 
     has_many :memberships, dependent: :delete_all
     has_many :rooms, through: :memberships
@@ -25,7 +30,7 @@ module Campfire
     end
 
     def initials
-      name.scan(/\b\w/).join
+      name.scan(/\b\w/).join.presence || email[0].upcase
     end
 
     def title

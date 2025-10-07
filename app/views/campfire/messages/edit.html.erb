@@ -1,0 +1,7 @@
+<h1>Edit Message</h1>
+
+<%= form_with model: [:campfire, @room, @message], url: room_message_path(@room, @message), method: :patch do |f| %>
+  <%= f.rich_text_area :body %>
+  <%= f.submit "Update Message" %>
+  <%= link_to "Cancel", room_path(@room) %>
+<% end %>
