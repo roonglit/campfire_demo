@@ -1,5 +1,7 @@
 module Campfire
   module ApplicationHelper
+    include Users::SidebarHelper
+
     def campfire_importmap_tags(entry_point = "campfire/application")
       importmap = Campfire.configuration.importmap
 
@@ -27,5 +29,18 @@ module Campfire
 
       safe_join(tags, "\n")
     end
+
+    def body_classes
+      [ @body_class, admin_body_class, account_logo_body_class ].compact.join(" ")
+    end
+
+    private
+      def admin_body_class
+        # "admin" if Current.user&.can_administer?
+      end
+
+      def account_logo_body_class
+        # "account-has-logo" if Current.account&.logo&.attached?
+      end
   end
 end

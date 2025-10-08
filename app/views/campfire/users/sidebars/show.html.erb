@@ -1,0 +1,8 @@
+<%= sidebar_turbo_frame_tag do %>
+  <div class="sidebar__container overflow-y overflow-hide-scrollbar"
+    data-controller="badge-dot"
+    data-badge-dot-unread-class="unread"
+    data-action="rooms-list:unread@window->badge-dot#update rooms-list:read@window->badge-dot#update turbo:submit-start->turbo-frame#unpermanize">
+    Hello, Sidebar!
+  </div>
+<% end %>

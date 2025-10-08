@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Campfire</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <head>
+    <title>Campfire</title>
 
-  <%= yield :head %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, interactive-widget=resizes-content">
+    <meta name="view-transition" content="same-origin">
+    <meta name="color-scheme" content="light dark">
 
-  <%= stylesheet_link_tag "campfire/application", media: "all" %>
-  <%= campfire_importmap_tags %>
-</head>
-<body class="sidebar">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag "campfire/application", media: "all" %>
+    <%= campfire_importmap_tags %>
+    <%= yield :head %>
+  </head>
+  <body class="<%= body_classes %>" data-controller="local-time lightbox">
 
-<nav id="nav">
-  <% if content_for?(:nav_content) %>
-    <%= yield :nav_content %>
-  <% else %>
-    <a href="<%= rooms_path %>" class="btn">
-      <span class="for-screen-reader">Back to all rooms</span>
-      ←
-    </a>
-  <% end %>
-</nav>
+    <% if notice = flash[:notice] || flash[:alert] %>
+      <div class="flash" data-controller="element-removal" data-action="animationend->element-removal#remove">
+        <div class="flash__inner shadow" style="<%= "--flash-background: var(--color-negative)" if flash[:alert] %>">
+          <% if flash[:alert] %>
+            <%= image_tag "campfire/alert.svg", aria: { hidden: true }, size: 24, class: "colorize--white" %></span>
+          <% else %>
+            <%= image_tag "campfire/check.svg", aria: { hidden: true }, size: 24, class: "colorize--white" %></span>
+          <% end %>
+        </div>
+        <span class="for-screen-reader" role="alert" aria-atomic="true"><%= notice %></span>
+      </div>
+    <% end %>
 
-<main id="main-content">
-  <%= yield %>
-</main>
+    <main id="main-content">
+      <%= yield %>
+    </main>
 
-<aside id="sidebar" class="open">
-  <%= turbo_frame_tag "sidebar", src: campfire.sidebar_path %>
-</aside>
-
-</body>
+    <aside id="sidebar">
+      <%= yield :sidebar %>
+    </aside>
+  </body>
 </html>
