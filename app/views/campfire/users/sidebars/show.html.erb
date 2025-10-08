@@ -3,6 +3,11 @@
     data-controller="badge-dot"
     data-badge-dot-unread-class="unread"
     data-action="rooms-list:unread@window->badge-dot#update rooms-list:read@window->badge-dot#update turbo:submit-start->turbo-frame#unpermanize">
-    Hello, Sidebar!
+    
+    <div class="rooms position-relative flex flex-column gap">
+      <%= link_to new_rooms_open_path, class: "rooms__new-btn btn room align-center gap txt-reversed", aria: { label: "New Chat Room" } do %>
+        <%= image_tag "campfire/add.svg", size: 20, aria: { hidden: "true" }, style: "view-transition-name: new-room" %>
+      <% end %>
+    </div>
   </div>
 <% end %>

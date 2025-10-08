@@ -166,6 +166,9 @@
   .static {
     position: static;
   }
+  .flex {
+    display: flex;
+  }
   .hidden {
     display: none;
   }

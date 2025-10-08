@@ -3,8 +3,6 @@
  * Modern, minimal design inspired by Once Campfire
  */
 
-@import url("/campfire/tailwind.css");
-
 /* Core foundation */
 @import url('application/colors.css');
 @import url('application/base.css');
