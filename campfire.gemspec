@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "bcrypt", "~> 3.1"
   spec.add_dependency "net-http-persistent", "~> 4.0"
   spec.add_dependency "platform_agent", "~> 1.0"
-  spec.add_dependency "rqrcode", "~> 2.0"
+  spec.add_dependency "rqrcode", ">= 2", "< 4"
   spec.add_dependency "tailwindcss-rails"
 end
