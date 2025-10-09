@@ -16,6 +16,7 @@ Campfire::Engine.routes.draw do
 
   namespace :rooms do
     resources :opens
+    resources :closeds
   end
 
   resources :directs, only: [:new, :create]

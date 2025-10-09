@@ -1,9 +1,9 @@
 module Campfire
   class User < ApplicationRecord
+    include Role
+  
     # Reference parent app's User model
     belongs_to :user, class_name: "::User"
-
-    enum :role, { member: 0, administrator: 1, bot: 2 }
 
     scope :active, -> { where(active: true) }
     scope :ordered, -> { joins(:user).order("LOWER(users.email)") }

@@ -1,6 +1,7 @@
 module Campfire
   module ApplicationHelper
-    include Users::SidebarHelper
+    include RoomsHelper, TranslationsHelper
+    include Users::SidebarHelper, Users::FilterHelper, Users::AvatarsHelper
 
     def campfire_importmap_tags(entry_point = "campfire/application")
       importmap = Campfire.configuration.importmap
@@ -32,6 +33,19 @@ module Campfire
 
     def body_classes
       [ @body_class, admin_body_class, account_logo_body_class ].compact.join(" ")
+    end
+
+    def link_back
+      back_url = request.referrer
+      back_url = root_path if back_url.nil? || back_url == request.url
+      link_back_to back_url
+    end
+
+    def link_back_to(destination)
+      link_to destination, class: "btn" do
+        image_tag("campfire/arrow-left.svg", aria: { hidden: "true" }, size: 20) +
+        tag.span("Go Back", class: "for-screen-reader")
+      end
     end
 
     private

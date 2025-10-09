@@ -27,11 +27,9 @@
   --color-selected: oklch(var(--lch-blue-light));
   --color-selected-dark: oklch(var(--lch-blue-dark));
   --color-alert: oklch(var(--lch-orange));
-}
 
-/* Redefine named color values for dark mode */
-@media (prefers-color-scheme: dark) {
-  :root {
+  /* Redefine named color values for dark mode */
+  @media (prefers-color-scheme: dark) {
     --lch-black: 100% 0 0;
     --lch-white: 0% 0 0;
     --lch-gray: 25.2% 0 0;

@@ -1,5 +1,8 @@
 module Campfire
   class ApplicationController < ActionController::Base
+    include TrackedRoomVisit
+    include Turbo::Streams::Broadcasts, Turbo::Streams::StreamName
+
     before_action :authenticate_user!
     before_action :set_current_campfire_user
 

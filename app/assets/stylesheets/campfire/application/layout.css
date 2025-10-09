@@ -1,6 +1,5 @@
 html {
   overscroll-behavior: none;
-  height: 100%;
 }
 
 body {
@@ -14,43 +13,45 @@ body {
     "main sidebar";
   grid-template-columns: 1fr var(--sidebar-width);
   grid-template-rows: min-content 1fr;
-  height: 100vh;
-  max-height: 100vh;
-  overflow: hidden;
+  max-block-size: 100dvh;
+
+  &.sidebar {
+    @media (min-width: 100ch) {
+      --sidebar-width: 26vw;
+    }
+  }
 }
 
-@media (min-width: 100ch) {
-  body.sidebar {
-    --sidebar-width: 26vw;
+#app-logo {
+  display: none;
+
+  @media (min-width: 100ch) {
+    block-size: var(--footer-height);
+    display: grid;
+    filter: saturate(0);
+    inline-size: 5vw;
+    inset: auto auto 0 0;
+    opacity: 0.5;
+    padding-inline: 1vw;
+    place-items: center;
+    position: absolute;
+    transition: opacity 500ms ease-in-out, filter 500ms ease-in-out;
+
+    & img {
+      block-size: auto;
+      inline-size: 100%;
+      max-inline-size: 2.75em;
+    }
+
+    &:hover {
+      filter: none;
+      opacity: 1;
+    }
   }
 }
 
 #nav {
-  align-items: center;
-  column-gap: var(--inline-space-half);
-  display: flex;
   grid-area: nav;
-  inset: 0 0 auto 0;
-  inset-inline-end: var(--sidebar-width);
-  padding-block: var(--block-space);
-  padding-inline: calc(var(--inline-space) * 1.5) var(--inline-space-double);
-  pointer-events: none;
-  position: fixed;
-  z-index: 2;
-}
-
-@media (max-width: 100ch) {
-  .sidebar #nav {
-    padding-block: var(--block-space-half);
-  }
-
-  .sidebar #nav::before {
-    background: linear-gradient(180deg, oklch(var(--lch-white)) 20%, oklch(var(--lch-white) / 0) 100%);
-    content: "";
-    inset: 0;
-    position: absolute;
-    z-index: -1;
-  }
 }
 
 #main-content {
@@ -61,16 +62,14 @@ body {
   grid-area: main;
   overflow: auto;
   position: relative;
-}
 
-.sidebar #main-content {
-  justify-content: end;
-}
+  .sidebar & {
+    justify-content: end;
 
-@media (min-width: 100ch) {
-  .sidebar #main-content {
-    border-inline: 1px solid var(--color-border-darker);
-    margin-inline: 5vw 0;
+    @media (min-width: 100ch) {
+      border-inline: 1px solid var(--color-border-darker);
+      margin-inline: 5vw 0;
+    }
   }
 }
 
@@ -78,26 +77,26 @@ body {
   grid-area: sidebar;
   position: relative;
   transition: transform 300ms ease;
-}
 
-.sidebar #sidebar {
-  -webkit-backdrop-filter: blur(66px);
-  backdrop-filter: blur(66px);
-  background-color: oklch(var(--lch-white) / 0.66);
-  block-size: 100dvh;
-  max-block-size: 100dvh;
-  z-index: 3;
-}
+  .sidebar & {
+    -webkit-backdrop-filter: blur(66px);
+    backdrop-filter: blur(66px);
+    background-color: oklch(var(--lch-white) / 0.66);
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+    z-index: 3;
 
-@media (max-width: 100ch) {
-  .sidebar #sidebar {
-    inset: 0;
-    position: fixed;
-    transform: translate(100%);
+    @media (max-width: 100ch) {
+      inset: 0;
+      position: fixed;
+      transform: translate(100%);
+    }
   }
 
-  #sidebar.open {
-    transform: translate(0);
+  &.open {
+    @media (max-width: 100ch) {
+      transform: translate(0);
+    }
   }
 }
 
