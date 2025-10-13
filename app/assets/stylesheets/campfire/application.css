@@ -11,6 +11,8 @@
 
 /* Components */
 @import url('application/buttons.css');
+@import url('application/nav.css');
+@import url('application/panels.css');
 @import url('application/sidebar.css');
 @import url('application/messages.css');
 @import url('application/composer.css');

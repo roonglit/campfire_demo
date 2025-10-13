@@ -11,7 +11,6 @@ html, body {
   color: var(--color-text);
   font-family: var(--font-family);
   line-height: 1.4;
-  overflow: initial;
   text-size-adjust: none;
 }
 

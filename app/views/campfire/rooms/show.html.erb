@@ -1,33 +1,23 @@
-<% content_for :nav_content do %>
-  <a href="<%= rooms_path %>" class="btn">
-    <span class="for-screen-reader">All Talk</span>
-    All Talk
-  </a>
+<% @page_title = room_display_name(@room) %>
+<% @body_class = "sidebar" %>
+<% content_for :head do %>
+  <meta name="current-room-id" content="<%= @room.id %>">
 <% end %>
 
-<div class="messages"
-     id="messages"
-     data-controller="messages"
-     data-messages-formatted-class="message--formatted"
-     data-messages-me-class="message--me"
-     data-current-user-id="<%= current_campfire_user.id %>">
-  <% if @room.messages.any? %>
-    <%= render partial: "campfire/messages/message", collection: @room.messages.ordered.with_creator %>
-  <% else %>
-    <div class="message-area message-area--empty">
-      <figure style="text-align: center; padding: 2em;">
-        <div style="font-size: 3em; margin-bottom: 0.5em;">💬</div>
-        <figcaption>
-          <h2>Welcome to <%= @room.name || "this conversation" %></h2>
-          <p style="color: var(--color-border-darker);">No messages yet. Start the conversation!</p>
-        </figcaption>
-      </figure>
-    </div>
+<%= render "campfire/rooms/show/nav", room: @room %>
+
+<% content_for :sidebar, sidebar_turbo_frame_tag(src: user_sidebar_path) %>
+
+<%= message_area_tag(@room) do %>
+  <%= render "campfire/messages/template" %>
+
+  <%= messages_tag(@room) do %>
+    <%= render "campfire/rooms/show/invitation", room: @room %>
+    <%= render partial: "campfire/messages/message", collection: @messages, cached: true %>
   <% end %>
-</div>
 
-<%= turbo_stream_from @room, :messages %>
+  <%= turbo_stream_from @room, :messages %>
+  <%= button_to_jump_to_newest_message %>
+<% end %>
 
-<footer id="footer" class="composer">
-  <%= render "campfire/messages/form", room: @room %>
-</footer>
+<%= render "campfire/rooms/show/composer", room: @room %>

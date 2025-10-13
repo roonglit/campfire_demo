@@ -9,12 +9,21 @@
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    
+
+    <% if Campfire::Current.user %>
+      <meta name="current-user-id" content="<%= Campfire::Current.user.id %>">
+      <meta name="current-user-name" content="<%= Campfire::Current.user.name %>">
+    <% end %>
+
     <%= stylesheet_link_tag "campfire/application", media: "all" %>
     <%= campfire_importmap_tags %>
     <%= yield :head %>
   </head>
   <body class="<%= body_classes %>" data-controller="local-time lightbox">
+
+    <nav id="nav">
+      <%= yield :nav %>
+    </nav>
 
     <% if notice = flash[:notice] || flash[:alert] %>
       <div class="flash" data-controller="element-removal" data-action="animationend->element-removal#remove">
@@ -31,6 +40,10 @@
 
     <main id="main-content">
       <%= yield %>
+
+      <footer id="footer">
+        <%= yield :footer %>
+      </footer>
     </main>
 
     <aside id="sidebar">

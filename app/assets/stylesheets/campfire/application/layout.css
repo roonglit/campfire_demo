@@ -13,7 +13,9 @@ body {
     "main sidebar";
   grid-template-columns: 1fr var(--sidebar-width);
   grid-template-rows: min-content 1fr;
+  block-size: 100dvh;
   max-block-size: 100dvh;
+  overflow: hidden;
 
   &.sidebar {
     @media (min-width: 100ch) {

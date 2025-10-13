@@ -12,6 +12,10 @@ Campfire::Engine.routes.draw do
 
   resources :rooms do
     resources :messages, only: [:create, :edit, :update, :destroy]
+
+    scope module: "rooms" do
+      resource :refresh, only: :show
+    end
   end
 
   namespace :rooms do
@@ -22,4 +26,8 @@ Campfire::Engine.routes.draw do
 
   resources :directs, only: [:new, :create]
   resource :sidebar, only: [:show]
+
+  resources :searches, only: %i[ index create ] do
+    delete :clear, on: :collection
+  end
 end

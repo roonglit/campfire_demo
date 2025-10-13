@@ -1,6 +1,7 @@
 module Campfire
   module ApplicationHelper
-    include RoomsHelper, TranslationsHelper
+    include RoomsHelper, TranslationsHelper, MessagesHelper, TimeHelper
+    include RichTextHelper, DropTargetHelper
     include Users::SidebarHelper, Users::FilterHelper, Users::AvatarsHelper
 
     def campfire_importmap_tags(entry_point = "campfire/application")

@@ -1,0 +1,14 @@
+<% if @room == Campfire::Room.original && !@room.messages.paged? %>
+  <div id="system_welcome" class="message message--formatted txt-align-center center">
+    <div class="message__body center">
+      <div class="message__body-content position-relative">
+        <div class="flex align-center gap">
+          <p>
+            <strong>Welcome to Campfire</strong><br>
+            Start chatting by sending your first message below.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

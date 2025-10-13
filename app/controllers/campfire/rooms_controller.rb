@@ -10,6 +10,7 @@ module Campfire
     end
 
     def show
+      @messages = @room.messages.ordered.with_creator
     end
 
     def new

@@ -25,8 +25,8 @@ module Campfire
 
     def button_to_delete_room(room, url: nil)
       button_to url || room_url(room), method: :delete, class: "btn btn--negative max-width", aria: { label: "Delete #{room.name}" },
-          data: { turbo_confirm: "Are you sure you want to delete this room and all messages in it? This can’t be undone." } do
-        image_tag("trash.svg", aria: { hidden: "true" }, size: 20) +
+          data: { turbo_confirm: "Are you sure you want to delete this room and all messages in it? This can't be undone." } do
+        image_tag("campfire/trash.svg", aria: { hidden: "true" }, size: 20) +
         tag.span(room_display_name(room), class: "overflow-ellipsis")
       end
     end
@@ -36,7 +36,7 @@ module Campfire
           class: "message-area__return-to-latest btn",
           data: { action: "messages#returnToLatest", messages_target: "latest" },
           hidden: true do
-        image_tag("arrow-down.svg", aria: { hidden: "true" }, size: 20) +
+        image_tag("campfire/arrow-down.svg", aria: { hidden: "true" }, size: 20) +
         tag.span("Jump to newest message", class: "for-screen-reader")
       end
     end
@@ -49,7 +49,7 @@ module Campfire
     end
 
     def composer_form_tag(room, &)
-      form_with model: Message.new, url: room_messages_path(room),
+      form_with model: Campfire::Message.new, url: room_messages_path(room),
         id: "composer", class: "margin-block flex-item-grow contain", data: composer_data_options(room), &
     end
 
