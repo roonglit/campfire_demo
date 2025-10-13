@@ -21,7 +21,7 @@ module Campfire
     has_many :users, through: :memberships
     has_many :messages, dependent: :destroy
 
-    belongs_to :creator, class_name: "User"
+    belongs_to :creator, class_name: "User", default: -> { Campfire::Current.user }
 
     scope :opens,           -> { where(type: "Campfire::Rooms::Open") }
     scope :closeds,         -> { where(type: "Campfire::Rooms::Closed") }

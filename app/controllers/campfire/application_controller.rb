@@ -15,7 +15,10 @@ module Campfire
     private
 
     def set_current_campfire_user
-      @current_campfire_user = Campfire::User.find_or_create_for(current_user) if user_signed_in?
+      if user_signed_in?
+        @current_campfire_user = Campfire::User.find_or_create_for(current_user)
+        Campfire::Current.user = @current_campfire_user
+      end
     end
   end
 end

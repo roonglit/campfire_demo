@@ -1,6 +1,9 @@
 module Campfire
   class User < ApplicationRecord
     include Role
+
+    has_many :memberships, dependent: :delete_all
+    has_many :rooms, through: :memberships
   
     # Reference parent app's User model
     belongs_to :user, class_name: "::User"
@@ -17,8 +20,7 @@ module Campfire
       user.try(:name) || email
     end
 
-    has_many :memberships, dependent: :delete_all
-    has_many :rooms, through: :memberships
+    
     has_many :messages, dependent: :destroy, foreign_key: :creator_id
 
     # Auto-create Campfire::User when onerev user first accesses chat

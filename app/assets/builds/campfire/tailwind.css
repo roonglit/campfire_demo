@@ -163,8 +163,14 @@
   .invisible {
     visibility: hidden;
   }
+  .relative {
+    position: relative;
+  }
   .static {
     position: static;
+  }
+  .contents {
+    display: contents;
   }
   .flex {
     display: flex;
@@ -178,12 +184,24 @@
   .table {
     display: table;
   }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  .overflow-clip {
+    overflow: clip;
+  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .fill-transparent {
+    fill: transparent;
+  }
   .overflow-ellipsis {
     text-overflow: ellipsis;
+  }
+  .capitalize {
+    text-transform: capitalize;
   }
   .shadow {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
