@@ -4,6 +4,7 @@
  */
 
 /* Core foundation */
+@import url('application/_reset.css');
 @import url('application/colors.css');
 @import url('application/base.css');
 @import url('application/utilities.css');
@@ -16,4 +17,5 @@
 @import url('application/sidebar.css');
 @import url('application/messages.css');
 @import url('application/composer.css');
+@import url('application/inputs.css');
 @import url('application/actiontext.css');

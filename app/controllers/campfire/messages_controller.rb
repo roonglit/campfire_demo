@@ -6,16 +6,8 @@ module Campfire
     def create
       @message = @room.messages.create!(message_params.merge(creator: current_campfire_user))
       @message.broadcast_create
-
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("new_message", partial: "campfire/messages/form", locals: { room: @room }) }
-        format.html { redirect_to room_path(@room), notice: "Message posted" }
-      end
-    rescue ActiveRecord::RecordInvalid => e
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("new_message", partial: "campfire/messages/form", locals: { room: @room, error: e.message }) }
-        format.html { redirect_to room_path(@room), alert: "Error: #{e.message}" }
-      end
+    rescue ActiveRecord::RecordNotFound
+      render action: :room_not_found
     end
 
     def edit

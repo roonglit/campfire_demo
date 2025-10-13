@@ -6,6 +6,9 @@ require "devise"
 require "importmap-rails"
 require "turbo-rails"
 
+# Require extensions
+require "campfire/rails_ext/string"
+
 module Campfire
   class << self
     attr_accessor :configuration

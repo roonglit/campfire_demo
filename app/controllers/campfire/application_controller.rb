@@ -3,6 +3,9 @@ module Campfire
     include TrackedRoomVisit
     include Turbo::Streams::Broadcasts, Turbo::Streams::StreamName
 
+    # Explicitly include all helper modules for broadcasts
+    helper ApplicationHelper
+
     before_action :authenticate_user!
     before_action :set_current_campfire_user
 

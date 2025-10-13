@@ -55,7 +55,7 @@ module Campfire
 
     def room_display_name(room, for_user: Campfire::Current.user)
       if room.direct?
-        room.users.without(for_user).pluck(:name).to_sentence.presence || for_user&.name
+        room.users.without(for_user).map(&:name).to_sentence.presence || for_user&.name
       else
         room.name
       end

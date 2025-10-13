@@ -1,6 +1,6 @@
 module Campfire
   class Message < ApplicationRecord
-    include Broadcasts
+    include Broadcasts, Pagination
 
     belongs_to :room, touch: true
     belongs_to :creator, class_name: "User"
